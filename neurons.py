@@ -4,6 +4,11 @@ weights = [[0.2, 0.8, -0.5, 1], [0.5, -0.91, 0.26, -0.5], [-0.26, -0.27, 0.17, 0
 
 biases = [2, 3, 0.5]
 
+#dot product
+import numpy as np
+output = np.dot(weights[0], inputs) + biases[0]
+print('dot product: ', output)
+
 layer_outputs = []
 
 for neuron_weights, neuron_bias in zip(weights, biases):
