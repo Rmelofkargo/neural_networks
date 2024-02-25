@@ -10,9 +10,19 @@ weights = [[0.2, 0.8, -0.5, 1],
 
 biases = [2, 3, 0.5]
 
+#second layer
+weights2 = [[0.1, -0.14, 0.5,], 
+           [-0.5, 0.12, -0.33], 
+           [-0.44, 0.73, -0.13]]
+
+biases2 = [-1, 2, -0.5]
+
 """
 para evitar el erro de shape, por tener 2 arrays (3,4) tenemos que hacer
 una transposición de los pesos para quedar (4,3)
 """
-output = np.dot(inputs, np.array(weights).T) + biases
-print(output)
+layer1_outputs = np.dot(inputs, np.array(weights).T) + biases
+print(layer1_outputs)
+
+layer2_outputs = np.dot(layer1_outputs, np.array(weights2).T) + biases2
+print(layer2_outputs)
