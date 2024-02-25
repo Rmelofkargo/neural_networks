@@ -15,3 +15,11 @@ class Layer_Dense:
         self.biases = 0.1 * np.zeros((1, n_neurons))
     def forward(self, inputs):
         self.output = np.dot(inputs, self.weights) + self.biases
+
+layer1 = Layer_Dense(4, 5)
+layer2 = Layer_Dense(5, 2)# tiene que ser del shape de la capa anterior
+
+layer1.forward(X)
+print(layer1.output)
+layer2.forward(layer1.output)
+print(layer2.output)
