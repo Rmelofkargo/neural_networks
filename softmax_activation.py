@@ -1,5 +1,6 @@
 import math
 
+#Exponential
 layer_outputs = [4.8, 1.21, 2.398]
 
 E = math.e
@@ -11,3 +12,14 @@ for output in layer_outputs:
 
 
 print(exp_values)
+
+#Normalization
+
+norm_base = sum(exp_values)
+norm_values = []
+
+for value in exp_values:
+    norm_values.append(value / norm_base)
+
+print(norm_values)
+print(sum(norm_values))
