@@ -22,9 +22,15 @@ class Layer_Dense:
     def forward(self, inputs):
         self.output = np.dot(inputs, self.weights) + self.biases
 
-class Activation_ReLU():
+class Activation_ReLU:
     def forward(self, inputs):
         self.output = np.maximum(0, inputs)
+
+class Activation_softmax:
+    def forward(self, inputs):
+        exp_values = np.exp(inputs - np.max(inputs, axis=1, keepdims=True))
+        probabilities = exp_values / np.sum(exp_values, axis=1, keepdims=True)
+        self.output = probabilities
 
 layer1 = Layer_Dense(2, 5)
 #layer2 = Layer_Dense(5, 2)# tiene que ser del shape de la capa anterior
@@ -35,3 +41,5 @@ activation1.forward(layer1.output)
 print(activation1.output)
 #layer2.forward(layer1.output)
 #print(layer2.output)
+
+##test softmax
