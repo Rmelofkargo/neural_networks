@@ -43,3 +43,18 @@ print(activation1.output)
 #print(layer2.output)
 
 ##test softmax
+X, y = spiral_data(samples=100, classes=3)
+
+dense1 = Layer_Dense(2, 3)
+activation1 = Activation_ReLU()
+
+dense2 = Layer_Dense(3, 3)
+activation2 = Activation_softmax()
+
+dense1.forward(X)
+activation1.forward(dense1.output)
+
+dense2.forward(activation1.output)
+activation2.forward(dense2.output)
+
+print(activation2.output[:5])
