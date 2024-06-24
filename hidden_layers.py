@@ -14,7 +14,8 @@ for i in inputs:
     output.append(max(0,i))
     """if i > 0:
         output.append(i)
-    elif i <= 0:
+    elif iexit
+      <= 0:
         output.append(0)
     """
 
