@@ -54,9 +54,9 @@ layer1 = Layer_Dense(2, 5)
 #layer2 = Layer_Dense(5, 2)# tiene que ser del shape de la capa anterior
 activation1 = Activation_ReLU()
 layer1.forward(X)
-print(layer1.output)
+#print(layer1.output)
 activation1.forward(layer1.output)
-print(activation1.output)
+#print(activation1.output)
 #layer2.forward(layer1.output)
 #print(layer2.output)
 
@@ -75,24 +75,25 @@ activation1.forward(dense1.output)
 dense2.forward(activation1.output)
 activation2.forward(dense2.output)
 
-print(activation2.output[:5])
+#print(activation2.output[:5])
 
 #test losses
 
 loss_function = Loss_CategoricalCrossEntropy()
 loss = loss_function.calculate(activation2.output, y)
-print(loss)
+#print(loss)
 
 ##plotting
 
 import matplotlib.pyplot as plt
 
 import nnfs
-from nnfs.datasets import vertical_data
+from nnfs.datasets import vertical_data, spiral_data
 
 nnfs.init()
 
-X, y = vertical_data(samples=100, classes=3)
+#X, y = vertical_data(samples=100, classes=3)
+X, y = spiral_data(samples=100, classes=3)
 
 dense1 = Layer_Dense(2, 3)
 activation1 = Activation_ReLU()
@@ -108,10 +109,10 @@ best_dense2_weights = dense2.weights.copy()
 best_dense2_biases = dense2.biases.copy()
 
 for iteration in range(100000):
-    dense1.weights = 0.05 * np.random.randn(2,3)
-    dense1.biases = 0.05 * np.random.randn(1,3)
-    dense2.weights = 0.05 * np.random.randn(3,3)
-    dense2.biases = 0.05 * np.random.randn(1,3)
+    dense1.weights += 0.05 * np.random.randn(2,3)
+    dense1.biases += 0.05 * np.random.randn(1,3)
+    dense2.weights += 0.05 * np.random.randn(3,3)
+    dense2.biases += 0.05 * np.random.randn(1,3)
 
     dense1.forward(X)
     activation1.forward(dense1.output)
@@ -123,7 +124,7 @@ for iteration in range(100000):
     prediction = np.argmax(activation2.output, axis=1)
     accuracy = np.mean(prediction==y)
 
-    if loss > lowest_lost:
+    if loss < lowest_lost:
         print('New set of weights found, iteration: ', 
               iteration, 'loss: ', loss, 'acc: ', accuracy)
         best_dense1_weights = dense1.weights.copy()
@@ -131,4 +132,8 @@ for iteration in range(100000):
         best_dense2_weights = dense2.weights.copy()
         best_dense2_biases = dense2.biases.copy()
         lowest_lost = loss
-        
+    else:
+        dense1.weights = best_dense1_weights.copy()
+        dense1.biases = best_dense1_biases.copy()
+        dense2.weights = best_dense2_weights.copy()
+        dense2.biases = best_dense2_biases.copy()
